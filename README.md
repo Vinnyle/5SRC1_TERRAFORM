@@ -6,7 +6,7 @@ This module provisions SSH Key Pair, AWS S3 bucket, Network Security Group and E
 
 Add you public key to .ssh folder then add your region, your AWS Access Key & Secret Key and session token into the variable.tf file 
 
-module "aws-s3-ec2-nsg-ssh" {
-    source          = "./modules/aws-s3-ec2-nsg-ssh"
-    bucket_name     = "ENTER YOUR BUCKET NAME HERE"
-}
+    module "aws-s3-ec2-nsg-ssh" {
+        source          = "./modules/aws-s3-ec2-nsg-ssh"
+        bucket_name     = "ENTER YOUR BUCKET NAME HERE"
+    }

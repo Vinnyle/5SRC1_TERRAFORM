@@ -1,59 +1,51 @@
-
-
-resource "aws_key_pair" "demo_ssh" {
-
-  key_name = var.public_ssh_key_name
-  # 1ère possibilitée
-  # public_key = "kjjlkjljlkjklljks"
-
-  # 2ème possibilitée
-  #  public_key = var.public_ssh_key
-
-  # 3ème possibilitée 
+resource "aws_key_pair" "ssh_keys" {
+  key_name   = var.key_name
   public_key = file("~/.ssh/id_rsa.pub")
-
 }
 
+resource "aws_security_group" "nsg01" {
+  name        = "${var.key_name}_security_group"
+  description = "Security group for example EC2 instance"
 
-resource "aws_security_group" "demo_sg" {
-
-  name        = var.aws_sg_name #"demo_sg"
-  description = "Allow SSH to EC2"
-
-  ingress = [{
+  ingress {
     description = "allow ssh"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     ipv6_cidr_blocks = []
-    prefix_list_ids = []
-    security_groups = []
+    prefix_list_ids =  []
+    security_groups =  []
     self = true
-  }]
 
-  egress = [{
-    description = "allow all "
+  }
+
+  egress {
+    description = "allow ssh"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
     ipv6_cidr_blocks = []
-    prefix_list_ids = []
-    self = []
-    security_groups = []
+    prefix_list_ids =  []
+    security_groups =  []
     self = true
-  }]
+
+  }
 }
 
-resource "aws_instance" "my_vm" {
+resource "aws_s3_bucket" "s3_bucket" {
+  bucket = var.bucket_name
+  acl    = "private"
 
-  ami             = var.aws_ec2_ami
-  instance_type   = var.aws_instance_type
-  key_name        = aws_key_pair.demo_ssh.key_name
-  security_groups = [aws_security_group.demo_sg.name]
-  tags = {
-    Name = var.aws_instance_name
+  versioning {
+    enabled = true
   }
+}
 
+resource "aws_instance" "ec2_instance" {
+  ami           = "ami-01234567890abcdef"
+  instance_type = var.instance_type
+  key_name      = aws_key_pair.ssh_keys.key_name
+  security_groups = [aws_security_group.nsg01.name]
 }

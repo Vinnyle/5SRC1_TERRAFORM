@@ -1,54 +1,39 @@
-variable "aws_region" {
-  description = "Default region of aws instance"
-  type        = string
-  default     = "us-east-1"
+ble "aws_region" {
+  type    = string
+  default = "us-east-1"
+}
 
+variable "aws_access_key" {
+  type    = string
+  default = "my_access_key"
 }
 
 variable "aws_secret_key" {
-  description = "Account secret Key"
-  type        = string
-}
-
-
-variable "aws_access_key" {
-
-  description = "Account access Key"
-  type        = string
+  type    = string
+  default = "my_secret_key"
 }
 
 variable "aws_token" {
-
-  description = "Account token session"
-  type        = string
+  type    = string
+  default = "my_token"
 }
 
-variable "public_ssh_key_name" {
-  description = "Name of SSH Key"
-  type        = string
-}
-variable "aws_sg_name" {
-
-  description = "Name of security group"
-  type        = string
+variable "key_name" {
+  type    = string
+  default = "ssh_key"
 }
 
-variable "aws_ec2_ami" {
-
-  description = "ami of ec2 instance"
-  type        = string
+variable "bucket_name" {
+  type    = string
+  default = "s3-bucket"
 }
 
-variable "aws_instance_type" {
-
-  description = "Type of EC2 instance "
-  type        = string
-  default     = "t2.micro"
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
 }
 
-variable "aws_instance_name" {
-
-  description = "AWS instance Name"
-  type        = string
-
+variable "instance_name" {
+  type    = string
+  default = "ec2_instance"
 }

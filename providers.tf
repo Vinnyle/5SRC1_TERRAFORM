@@ -8,10 +8,8 @@ terraform {
 }
 
 provider "aws" {
-  # Configuration options
-  #  region = "${var.aws_region}"
-  region     = var.aws_region
-  secret_key = var.aws_secret_key
+  region  = var.aws_region
   access_key = var.aws_access_key
-  token      = var.aws_token
+  secret_key = var.aws_secret_key
+  token = var.aws_token
 }
